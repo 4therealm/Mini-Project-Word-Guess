@@ -86,7 +86,7 @@ border-top-right-radius: 20px;
   /* background-color:midnightblue; */
   height: 60vh;
   flex-direction: column;
-  background-color: mintcream;
+  /* background-color: mintcream; */
   /* justify-content: space-between; */
 border-bottom-left-radius: 20px;
 border-bottom-right-radius: 20px;
@@ -104,12 +104,14 @@ outline: none;
 .letter-block{
   box-shadow: var(--letter-block-shadow);
   border:2px solid black;
+  background-color:azure;
   height: 4rem;
   width: 4rem;
   border-radius: 10px;
   font-size: 3rem;
   text-align: center;
   line-height: 3.5rem;
+  
 }
 #key-pad{
 width: 60vw;
@@ -129,4 +131,7 @@ gap: 5px;
 } 
 #key-pad button:hover{
   scale: 1.2;
+}
+.hide{
+  visibility: hidden;
 }

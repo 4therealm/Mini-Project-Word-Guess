@@ -34,10 +34,14 @@ const game_box = document.querySelector('.game-box');
   const word_box = document.querySelector('#word-box');
   const key_pad = document.querySelector('#key-pad');
 const animation_box = document.querySelector('.animation-selector');
+const keyBoard = document.querySelector('.keyboard')
   
 //buttons and eventListeners
 const start_button = document.querySelector('#start-button')
   start_button.addEventListener('click', startGame)
+  keyBoard.addEventListener('keydown', e =>{
+console.log(e)
+  })
 //let
 let timeLeft = 60;
 let wins = 0;
@@ -85,7 +89,7 @@ function fireWord(word) {
     console.log(letters)
     block.classList.add('letter-block')
     word_box.appendChild(block)
-    
   });
 }
+
 
