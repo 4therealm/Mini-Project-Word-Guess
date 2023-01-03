@@ -39,9 +39,7 @@ const keyBoard = document.querySelector('.keyboard')
 //buttons and eventListeners
 const start_button = document.querySelector('#start-button')
   start_button.addEventListener('click', startGame)
-  keyBoard.addEventListener('keydown', e =>{
-console.log(e)
-  })
+  keyBoard.addEventListener('keydown', letterSelect)
 //let
 let timeLeft = 60;
 let wins = 0;
@@ -49,13 +47,88 @@ let losses = 0;
 
 //array of word objects
 let word_pool = [
-   {word: 'succubus', letters: ["s", "u", "c", "c", "u", "b", "u", "s",]},
-   {word: 'infinity', letters: ["i", "n", "f", "i", "n", "i", "t", "y",]},
-   {word: 'porcupine', letters: ["p", "o", "r", "c", "u", "p", "i", "n", "e",]},
-   {word: 'zombie', letters: ["z", "o", "m", "b", "i", "e",]},
-   {word: 'hippopotamus', letters: ["h", "i", "p", "p", "o", "p", "o", "t", "a", "m", "u", "s",]},
-   {word: 'fibonacci', letters: ["f", "i", "b", "o", "n", "a", "c", "c", "i",]},
-   {word: 'daffodil', letters: ["d", "a", "f", "f", "o", "d", "i", "l",]},
+
+   {word:'succubus', 
+          letters: [
+            {text:"s", keyCode: 3},
+            {text:"u", keyCode:85},
+            {text:"c", keyCode:67},
+            {text:"c", keyCode:67},
+            {text:"u", keyCode:85},
+            {text:"b", keyCode:66},
+            {text:"u", keyCode:85},
+            {text:"s", keyCode:83},  
+  ]
+},
+{word:'porcupine', 
+          letters: [
+            {text:"p", keyCode:80},
+            {text:"o", keyCode:79},
+            {text:"r", keyCode:82},
+            {text:"c", keyCode:67},
+            {text:"u", keyCode:85},
+            {text:"p", keyCode:80},
+            {text:"i", keyCode:73},
+            {text:"n", keyCode:78},  
+            {text:"e", keyCode:69}, 
+  ]},
+{word:'infinity',
+        letters: [
+            {text:"i", keyCode: 73},
+            {text:"n", keyCode: 78},
+            {text:"f", keyCode: 70},
+            {text:"i", keyCode: 73},
+            {text:"n", keyCode: 78},
+            {text:"i", keyCode: 73},
+            {text:"t", keyCode: 84},
+            {text:"y", keyCode: 90}
+  ]},
+{word:'zombie', 
+        letters: [
+          {text:"z", keyCode:90},
+          {text:"o", keyCode:79},
+          {text:"m", keyCode:77},
+          {text:"b", keyCode:66},
+          {text:"i", keyCode:73},
+          {text:"e", keyCode:69},
+  ]},
+{word:'hippopotamus', 
+        letters: [
+          {text:"h", keyCode:72},
+          {text:"i", keyCode:73},
+          {text:"p", keyCode:80},
+          {text:"p", keyCode:80},
+          {text:"o", keyCode:79},
+          {text:"p", keyCode:80},
+          {text:"o", keyCode:79},
+          {text:"t", keyCode:84},  
+          {text:"a", keyCode:65}, 
+          {text:"m", keyCode:77},  
+          {text:"u", keyCode:85},  
+          {text:"s", keyCode:83},  
+  ]},
+{word: 'fibonacci', 
+        letters: [
+          {text:"f", keyCode:70},
+          {text:"i", keyCode:73},
+          {text:"b", keyCode:68},
+          {text:"o", keyCode:79},
+          {text:"n", keyCode:78},
+          {text:"c", keyCode:67},
+          {text:"c", keyCode:67},
+          {text:"i", keyCode:73},  
+  ]},
+{word: 'daffodil', 
+        letters: [
+          {text:"d", keyCode:68},
+          {text:"a", keyCode:65},
+          {text:"f", keyCode:70},
+          {text:"f", keyCode:70},
+          {text:"o", keyCode:79},
+          {text:"d", keyCode:68},
+          {text:"i", keyCode:73},
+          {text:"l", keyCode:76},  
+  ]},
 ];
 
 
@@ -66,7 +139,8 @@ function startGame() {
 console.log("startGame fired")
 console.log("Wins = " + wins + " losses = " + losses + " and, your available time = " + timeLeft)
   // countdown();
-shuffled_word_pool =  word_pool.sort(() => Math.random() - .5);
+shuffled_word_pool = word_pool.sort(() => Math.random() - .5);
+console.log(shuffled_word_pool)
 current_word_index = 0;
 loadWord()//grabs a word object from the shuffled array 
 }
@@ -80,16 +154,25 @@ console.log("loadWord fired")
 
 function fireWord(word) {
   console.log("fireWord fired")
-  console.log(word)
-  console.log(word.letters)
-  console.log(word.letters.length)
+  
   word.letters.forEach(letters => {
     const block = document.createElement('div')
-    block.innerText = letters
-    console.log(letters)
+    block.innerText = letters.text
     block.classList.add('letter-block')
     word_box.appendChild(block)
+    console.log(letters)
+
+    
+    //does the inner text key code need to be used?
   });
 }
 
+function letterSelect(e) {
+  const selection = e;
+  const selectionCode = selection.keyCode
+  const selectionLetter = selection.key
+
+console.log("letter select fired")
+console.log(selectionLetter + " = " + selectionCode)
+}
 
