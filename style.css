@@ -16,18 +16,15 @@ body{
 header{
   height: 10vh;
   width: 100%;
-  outline: 5px solid springgreen;
-  background-color: crimson;
+  /* outline: 5px solid springgreen; */
+  /* background-color: crimson; */
 }
 footer{
   height: 10vh;
-  outline: 5px solid springgreen;
-}
-button{
-  width: 5%;
-  height: 5vh;
+  /* outline: 5px solid springgreen; */
 }
 .container{
+  border-radius: 20px;
   margin: 0 auto;
   height: 80vh;
   width: 95vw;
@@ -40,13 +37,13 @@ button{
   width: 100%;
   min-height: 10vh;
   background-color: black;
-  outline: 5px solid springgreen;
+  /* outline: 5px solid springgreen; */
 }
 .flex-column{
   outline: 5px solid black;
   display: flex;
   flex-direction:column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .btn{
@@ -65,14 +62,15 @@ button{
 .hud-box{
 height: 8vh;
 justify-content: space-evenly;
-
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;
 }
 .hud-item{
   text-align: center;
   color: aliceblue;
   width: 10%;
   font-size: 1.5rem;
-  outline: 5px solid springgreen;
+  /* outline: 5px solid springgreen; */
 
 }
 #timer{
@@ -85,39 +83,47 @@ justify-content: space-evenly;
 
 }
 .game-box{
-  background-color: aqua;
-  height: 40vh;
+  background-color:midnightblue;
+  height: 60vh;
   flex-direction: column;
-  justify-content: space-evenly;
-
+  background-color: mintcream;
+  /* justify-content: space-between; */
+border-bottom-left-radius: 20px;
+border-bottom-right-radius: 20px;
 }
-.game-items{
-display: flex;
-}
-#letter-blocks{
+#letter-box{
   display: flex;
   justify-content: center;
-  gap: 10px;
-  width: 100%;
-  outline:2px solid black;
+  gap: 15px;
+  width: fit-content;
+  /* outline:2px solid black; */
   box-shadow: var(--letter-block-shadow);
   /* width: 1.1rem; */
   /* height: 1.1rem; */
   color: #000;
 
 }
-#letter-blocks button{
+.letter-block{
   height: 5rem;
   width: 5rem;
+  border-radius: 10px;
 }
 #letter-used{
-  width: 50%;
+width: 60vw;
 display: flex;
+flex-direction: row;
 flex-wrap: wrap;
 justify-content: center;
+gap: 5px;
+border: 5px solid black;
 }
 #letter-used button{
   height: 3rem;
   width: 3rem;
+  box-shadow: var(--letter-block-shadow);
+  font-weight: bolder;
+  font-size: 30px;
 } 
-
+#letter-used button:hover{
+  scale: 1.2;
+}

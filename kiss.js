@@ -31,7 +31,7 @@ const hud_box = document.querySelector('.hud-box');
   const _wins = document.querySelector('#wins');
   const _losses = document.querySelector('#losses');
 const game_box = document.querySelector('.game-box');
-  const letter_blocks = document.querySelector('#letter-blocks');
+  const letter_box = document.querySelector('#letter-box');
   const letter_used = document.querySelector('#letter-used');
 const animation_box = document.querySelector('.animation-selector');
   
@@ -79,5 +79,13 @@ function fireWord(word) {
   console.log(word)
   console.log(word.letters)
   console.log(word.letters.length)
+  word.letters.forEach(letters => {
+    const block = document.createElement('div')
+    block.innerText = letters
+    console.log(letters)
+    block.classList.add('letter-block')
+    letter_box.appendChild(block)
+    
+  });
 }
 
