@@ -31,8 +31,8 @@ const hud_box = document.querySelector('.hud-box');
   const _wins = document.querySelector('#wins');
   const _losses = document.querySelector('#losses');
 const game_box = document.querySelector('.game-box');
-  const letter_box = document.querySelector('#letter-box');
-  const letter_used = document.querySelector('#letter-used');
+  const word_box = document.querySelector('#word-box');
+  const key_pad = document.querySelector('#key-pad');
 const animation_box = document.querySelector('.animation-selector');
   
 //buttons and eventListeners
@@ -84,7 +84,7 @@ function fireWord(word) {
     block.innerText = letters
     console.log(letters)
     block.classList.add('letter-block')
-    letter_box.appendChild(block)
+    word_box.appendChild(block)
     
   });
 }
