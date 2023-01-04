@@ -2,7 +2,7 @@
 
 const word_box = document.querySelector('#word-box');
 const keyBoard = document.querySelector('.keyboard')
-// keyBoard.addEventListener('keydown', compareKeyPressed)
+keyBoard.addEventListener('keydown', evaluatePressedKey)
 //only allow letters to be pressed
 //buttons and eventListeners
 const start_button = document.querySelector('#start-button')
@@ -101,6 +101,10 @@ start_button.addEventListener('click', startGame)
 let shuffled_word_pool, current_word_index;
 let accepting_key_codes = [];
 
+let pressedKeyCode;
+let match = accepting_key_codes.includes(pressedKeyCode); //true or false
+let match_how_many = 0;
+
 function startGame() {
   console.log('startgame fired')
   shuffled_word_pool = word_pool.sort(() => Math.random() - .5);
@@ -114,16 +118,32 @@ function loadWord() {
 }
 function fireWord(word) {
   console.log('fire word fired ' + word.word)
-
   word.letters.forEach(letters =>{
-
     const block = document.createElement('div')
     block.innerText = letters.text
-    accepting_key_codes = letters.keyCode
+   const blockKey = letters.keyCode
+    accepting_key_codes.push(blockKey)
+    block.classList.add('letter-block')
     console.log(accepting_key_codes)
+    word_box.appendChild(block)
   })
 }
 
+function compare(pressedKey, blockKeys) {
+      if (blockKeys.includes(pressedKey)){
+    console.log("boom")
+    //while loop maybe?
+       } else {
+         console.log("sucka")
+  }
+    
+  };
+function evaluatePressedKey(e){
+  const pressedKeyCode = e.keyCode
+  const pressedKeyLetter = e.key
+  console.log("key pressed is " +  pressedKeyLetter  + " with a keyCode of " + pressedKeyCode + accepting_key_codes)
+compare(pressedKeyCode, accepting_key_codes)
+}
 
 
 
@@ -132,7 +152,7 @@ let word_pool = [
 
   {word:'succubus', 
          letters: [
-           {text:"s", keyCode: 3},
+           {text:"s", keyCode:83},
            {text:"u", keyCode:85},
            {text:"c", keyCode:67},
            {text:"c", keyCode:67},
@@ -212,13 +232,7 @@ let word_pool = [
          {text:"l", keyCode:76},  
  ]},
 ];
-// function showLetter(word) {
-//   const block = document.createElement('div')
-//   console.log(blockKeyCode + " = " + hidden_Letter[1].letter)
-//   block.classList.add('letter-block')
-//   word_box.appendChild(block)
-  
-// }
+
 
 
 
