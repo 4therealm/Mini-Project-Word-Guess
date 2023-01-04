@@ -44,6 +44,9 @@ const start_button = document.querySelector('#start-button')
 let timeLeft = 60;
 let wins = 0;
 let losses = 0;
+let hiddenLetters = [];
+let pressedKey = letterSelect(e, )
+
 
 //array of word objects
 let word_pool = [
@@ -130,49 +133,63 @@ let word_pool = [
           {text:"l", keyCode:76},  
   ]},
 ];
-
+let hidden_Letter = [
+  {letter: "s", keyCode:83}
+]
 
 let shuffled_word_pool, current_word_index
 
 
 function startGame() {
 console.log("startGame fired")
-console.log("Wins = " + wins + " losses = " + losses + " and, your available time = " + timeLeft)
-  // countdown();
-shuffled_word_pool = word_pool.sort(() => Math.random() - .5);
-console.log(shuffled_word_pool)
-current_word_index = 0;
+// console.log("Wins = " + wins + " losses = " + losses + " and, your available time = " + timeLeft)
+//   // countdown();
+// shuffled_word_pool = word_pool.sort(() => Math.random() - .5);
+// console.log(shuffled_word_pool)
+// current_word_index = 0;
 loadWord()//grabs a word object from the shuffled array 
 }
 
 function loadWord() {
-console.log("loadWord fired")
+console.log("word is fired")
   //blankSlate() clears out previous word data
-  console.log("The current word index is " + current_word_index)
-  fireWord(shuffled_word_pool[current_word_index]);
+  console.log("The current word index: " + current_word_index + " The  current word: " + shuffled_word_pool[current_word_index].word)
+  fireWord(hidden_Letter[0]);
 }
 
 function fireWord(word) {
   console.log("fireWord fired")
-  
+  hiddenLetters = word.letters
   word.letters.forEach(letters => {
     const block = document.createElement('div')
-    block.innerText = letters.text
+    const blockText = letters.text
+    block.dataset.keyCode = letters.keyCode
+    addEventListener("keydown", letterSelect)
+    const blockKeyCode = letters.keyCode
     block.classList.add('letter-block')
     word_box.appendChild(block)
-    console.log(letters)
+    console.log("this is each blocks text: " + blockText + " and its dataset keyCode: " + blockKeyCode)
+        //does the inner text key code need to be used?
+  });
+
+}
+
+function letterSelect(e,hiddenLetters) {
+  pressedKey = e;
+  const pressedKeyCode = pressedKey.keyCode
+  Array.from(word_box.children).forEach(hiddenLetters => {
 
     
-    //does the inner text key code need to be used?
-  });
+
+  console.log("here is your keyCode: " + pressedKeyCode)
+  console.log("letter select fired")
+  }
+
+function evalKey(hiddenLetters, pressedKeyCode){
+if (hiddenLetters ===  pressedKey) {
+  console.log("boom")
+  
+}
 }
 
-function letterSelect(e) {
-  const selection = e;
-  const selectionCode = selection.keyCode
-  const selectionLetter = selection.key
-
-console.log("letter select fired")
-console.log(selectionLetter + " = " + selectionCode)
-}
-
+let 
