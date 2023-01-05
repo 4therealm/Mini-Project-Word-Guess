@@ -27,135 +27,54 @@
 
 //element constants
 
-const word_box = document.querySelector('#word-box');
+// const word_box = document.querySelector('#word-box');
 document.addEventListener('keydown', evaluatePressedKey)
 
 //buttons and eventListeners
 const start_button = document.querySelector('#start-button')
 start_button.addEventListener('click', startGame)
+const inputs = document.querySelector(".inputs");
+typingInput = document.querySelector(".typing-input");
 
-let shuffled_word_pool, current_word_index;
-let accepting_key_codes = [];
-let matches = [];  
+let currentWord;
+let incorrectLetters = [];
+let correctLetters = [];  
 let pressedKey;
 let word_pool = [
-
-  {word:'succubus', 
-         letters: [
-           {text:"s", keyCode:83},
-           {text:"u", keyCode:85},
-           {text:"c", keyCode:67},
-           {text:"c", keyCode:67},
-           {text:"u", keyCode:85},
-           {text:"b", keyCode:66},
-           {text:"u", keyCode:85},
-           {text:"s", keyCode:83},  
- ]
-},
-{word:'porcupine', 
-         letters: [
-           {text:"p", keyCode:80},
-           {text:"o", keyCode:79},
-           {text:"r", keyCode:82},
-           {text:"c", keyCode:67},
-           {text:"u", keyCode:85},
-           {text:"p", keyCode:80},
-           {text:"i", keyCode:73},
-           {text:"n", keyCode:78},  
-           {text:"e", keyCode:69}, 
- ]},
-{word:'infinity',
-       letters: [
-           {text:"i", keyCode: 73},
-           {text:"n", keyCode: 78},
-           {text:"f", keyCode: 70},
-           {text:"i", keyCode: 73},
-           {text:"n", keyCode: 78},
-           {text:"i", keyCode: 73},
-           {text:"t", keyCode: 84},
-           {text:"y", keyCode: 90}
- ]},
-{word:'zombie', 
-       letters: [
-         {text:"z", keyCode:90},
-         {text:"o", keyCode:79},
-         {text:"m", keyCode:77},
-         {text:"b", keyCode:66},
-         {text:"i", keyCode:73},
-         {text:"e", keyCode:69},
- ]},
-{word:'hippopotamus', 
-       letters: [
-         {text:"h", keyCode:72},
-         {text:"i", keyCode:73},
-         {text:"p", keyCode:80},
-         {text:"p", keyCode:80},
-         {text:"o", keyCode:79},
-         {text:"p", keyCode:80},
-         {text:"o", keyCode:79},
-         {text:"t", keyCode:84},  
-         {text:"a", keyCode:65}, 
-         {text:"m", keyCode:77},  
-         {text:"u", keyCode:85},  
-         {text:"s", keyCode:83},  
- ]},
-{word: 'fibonacci', 
-       letters: [
-         {text:"f", keyCode:70},
-         {text:"i", keyCode:73},
-         {text:"b", keyCode:68},
-         {text:"o", keyCode:79},
-         {text:"n", keyCode:78},
-         {text:"c", keyCode:67},
-         {text:"c", keyCode:67},
-         {text:"i", keyCode:73},  
- ]},
-{word: 'daffodil', 
-       letters: [
-         {text:"d", keyCode:68},
-         {text:"a", keyCode:65},
-         {text:"f", keyCode:70},
-         {text:"f", keyCode:70},
-         {text:"o", keyCode:79},
-         {text:"d", keyCode:68},
-         {text:"i", keyCode:73},
-         {text:"l", keyCode:76},  
- ]},
+{word:'succubus'},
+{word:'porcupine'},
+{word:'infinity'},
+{word:'zombie'},
+{word:'hippopotamus'},
+{word:'fibonacci'},
+{word:'daffodil'}
 ];
 
 function startGame() {
-  console.log('startgame fired')
-  shuffled_word_pool = word_pool.sort(() => Math.random() - .5);
-  current_word_index = 0
-  loadWord()}
-  function loadWord() {
-    console.log('loadWord has fired')
-    fireWord(word_pool[1]);}
+  let randomObject = word_pool[Math.floor(Math.random()*word_pool.length)];
+  console.log(randomObject.word)
+  currentWord = randomObject.word
+  let html = "";
+  for (let i = 0; i < currentWord.length; i++) {
+    html += `<input type="text" disabled>`
+    inputs.innerHTML = html;
+    
+  }
+}
+function evaluatePressedKey(e){
+  pressedKey =  e.key
+console.log(pressedKey)
+if (pressedKey.match(/^[A-Za-z]+$/) && !incorrectLetters.includes(pressedKey) && !correctLetters.includes(pressedKey)){
 
-    function fireWord(word) {
-      console.log('fire word fired, your word is ' + word.word)
-      word.letters.forEach(letters =>{
-        const block = document.createElement('div')
-       const blockText = letters.text
-       block.dataset.key = letters.text
-       console(block.dataset.key)
-        
-        // if (pressedKey == blockText){
-        //   console.log('boom')
-        // }
-
-
-
-        block.classList.add('letter-block')
-        word_box.appendChild(block)
-        console.log(blockText + word_box.childElementCount)
-        console.log(`the letter is: ${blockText} `)
-      })
-      // console.log ("the accepting keyCodes are: " + accepting_key_codes)
-      }
-      function evaluatePressedKey(e){
-       let pressedKeyLetter = e
-        
-        console.log(pressedKeyLetter.keyCode)
-
-      }
+  if(currentWord.includes(pressedKey)) {
+    for (let i = 0; i < currentWord.length; i++) {
+        if(currentWord[i] == pressedKey) {
+            correctLetters += pressedKey;
+            inputs.querySelectorAll("input")[i].value = pressedKey;
+        }
+    }
+} else {
+    incorrectLetters.push(pressedKey);
+}
+}
+}
