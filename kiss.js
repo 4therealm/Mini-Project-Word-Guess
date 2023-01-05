@@ -44,8 +44,7 @@ let correctLetters = [];
 let pressedKey;
 let wins = 0;
 let losses = 0;
-
-// const maxGuesses = currentWord.length + 4;
+let shuffled_word_pool, current_word_index;
 
 
 //array of words
@@ -61,73 +60,68 @@ let word_pool = [
 
 
 function startGame() {
-
-  let randomObject = word_pool[Math.floor(Math.random()*word_pool.length)];
-  console.log(randomObject.word)
-  currentWord = randomObject.word
-  
-  loadWord(currentWord)
-
+//  restart()
+console.log("startgame fired")
+  shuffled_word_pool = word_pool.sort(() => Math.random() - .5)
+  current_word_index = 0;
+  //timerstart
+  loadWord()
 }
 
-function loadWord(word){
-  // resetState() will remove the previously generated word and the correct/incorrect count
+function loadWord(){
+  console.log('loadword fired')
   correctLetters = [];
   incorrectLetters = [];
-  console.log(`correct letter count ${correctLetters.length} incorrect letter count ${incorrectLetters.length}`)
+  currentWord = shuffled_word_pool[current_word_index].word
+fireWord(currentWord)  
+}
 
+function fireWord(word){
+  console.log(`the current word is: ${word}`)
   let html = "";
   for (let i = 0; i < word.length; i++) {
     html += `<input type="text" disabled>`
     inputs.innerHTML = html;
   }
 }
-
-
-
+  
 
 
 
 function evaluatePressedKey(e){
   pressedKey =  e.key
-// console.log(pressedKey)
-//if key pressed is a letter, and has not been pressed already
+  console.log(`${pressedKey} has been pressed`)
 if (pressedKey.match(/^[A-Za-z]+$/) &&
- !incorrectLetters.includes(pressedKey) && 
- !correctLetters.includes(pressedKey)){
-compare(pressedKey, currentWord)
-}else{wrongGuesses ++
-  console.log(`guesses = ${wrongGuesses}`)
-incorrect_display.innerText = `Incorrect Letters: ${incorrectLetters}`}
-
+  !incorrectLetters.includes(pressedKey) && 
+  !correctLetters.includes(pressedKey)){
+    compare(pressedKey, currentWord)}
 
 if (correctLetters.length === currentWord.length){
   console.log("you win")
   wins++
+  current_word_index++
+  console.log(`${current_word_index}`)
   loadWord()
 }
 }
 
+
 function compare(key, word) 
 {
-  if (word.includes(key))
-  {
-    for (let i = 0; i < word.length; i++)
-    {
+  if (word.includes(key)){
+    for (let i = 0; i < word.length; i++){
       if (word[i] == key) {
-          correctLetters += pressedKey;
-            
-          console.log(`correct letters :
-              ${correctLetters.length} 
-              / ${currentWord.length}`)
-          console.log(`${inputs.querySelectorAll("input")[i].value}`)
-           inputs.querySelectorAll("input")[i].value = pressedKey;
-          }
-      
-    }
+        correctLetters += pressedKey;
+        inputs.querySelectorAll("input")[i].value = pressedKey;
+        console.log("its a match")
+          }}
   }else{
           incorrectLetters.push(pressedKey);
           console.log("Wrong letter, loser")
-          
-          }
+        }
+        incorrect_display.innerText = `Incorrect Letters: ${incorrectLetters}`
+        if(correctLetters.length === currentWord.length) {
+          console.log("")
+          wins++
+        }
 }
