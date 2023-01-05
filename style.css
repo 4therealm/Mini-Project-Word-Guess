@@ -13,7 +13,12 @@ body{
   width: 100%w;
   background-color: steelblue;
 }
-
+.incorrect{
+  border: 5px solid black;
+  width: fit-content;
+  height: 20px;
+  padding: 10px;
+}
 
 .container{
   border-radius: 20px;
