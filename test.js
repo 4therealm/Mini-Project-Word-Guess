@@ -1,9 +1,8 @@
 
 
 const word_box = document.querySelector('#word-box');
-const keyBoard = document.querySelector('.keyboard')
-keyBoard.addEventListener('keydown', evaluatePressedKey)
-//only allow letters to be pressed
+document.addEventListener('keydown', evaluatePressedKey)
+
 //buttons and eventListeners
 const start_button = document.querySelector('#start-button')
 start_button.addEventListener('click', startGame)
@@ -100,10 +99,9 @@ start_button.addEventListener('click', startGame)
 
 let shuffled_word_pool, current_word_index;
 let accepting_key_codes = [];
-
-let pressedKeyCode;
+let matches = [];  
+let pressedKey
 let match = accepting_key_codes.includes(pressedKeyCode); //true or false
-let match_how_many = 0;
 
 function startGame() {
   console.log('startgame fired')
@@ -117,31 +115,38 @@ function loadWord() {
   fireWord(shuffled_word_pool[current_word_index]);  
 }
 function fireWord(word) {
-  console.log('fire word fired ' + word.word)
+  console.log('fire word fired, your word is ' + word.word)
   word.letters.forEach(letters =>{
     const block = document.createElement('div')
-    block.innerText = letters.text
-   const blockKey = letters.keyCode
-    accepting_key_codes.push(blockKey)
+    const blockKey = letters
+    // accepting_key_codes.push(blockKey)
     block.classList.add('letter-block')
-    console.log(accepting_key_codes)
     word_box.appendChild(block)
   })
-}
+  // console.log ("the accepting keyCodes are: " + accepting_key_codes)
+  }
 
 function compare(pressedKey, blockKeys) {
-      if (blockKeys.includes(pressedKey)){
-    console.log("boom")
-    //while loop maybe?
-       } else {
-         console.log("sucka")
-  }
+  let anyMatches =  blockKeys.includes(pressedKey)
+console.log("are there any matches? " + anyMatches)
+if (anyMatches) { console.log('boom')
+    for ( var i = 0; i < blockKeys.length; i++ )
+     { if ( blockKeys[i] === pressedKey ) matches.push( blockKeys[i] ); blockKeys.splice(blockKeys[i], 1); }}
+     console.log(`the matches array length is, ${matches.length}`)  
+     console.log(`there are ${blockKeys.length - matches.length} more blocks to fill!`)  
+    }
+ 
+  
+  
+ 
+
     
-  };
+
 function evaluatePressedKey(e){
-  const pressedKeyCode = e.keyCode
+  pressedKeyCode = e.keyCode
   const pressedKeyLetter = e.key
-  console.log("key pressed is " +  pressedKeyLetter  + " with a keyCode of " + pressedKeyCode + accepting_key_codes)
+  
+  console.log("key pressed is " +  pressedKeyLetter  + " with a keyCode of " + pressedKeyCode)
 compare(pressedKeyCode, accepting_key_codes)
 }
 
@@ -256,4 +261,4 @@ let word_pool = [
 //     {letter: "s", keyCode:83},
 //     {letter: "p", keyCode:80},
 //     {letter: "i", keyCode:73},
-//   ]
+//   
