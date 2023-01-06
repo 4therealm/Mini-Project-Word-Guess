@@ -34,7 +34,7 @@ document.addEventListener('keydown', evaluatePressedKey)
 const start_button = document.querySelector('#start-button')
 start_button.addEventListener('click', startGame)
 const inputs = document.querySelector(".inputs");
-const typingInput = document.querySelector(".typing-input");
+
 const incorrect_display = document.querySelector(".incorrect")
 // managing state
 let currentWord;
@@ -72,6 +72,7 @@ function loadWord(){
   console.log('loadword fired')
   correctLetters = [];
   incorrectLetters = [];
+  clearBlocks()
   currentWord = shuffled_word_pool[current_word_index].word
 fireWord(currentWord)  
 }
@@ -95,19 +96,22 @@ if (pressedKey.match(/^[A-Za-z]+$/) &&
   !incorrectLetters.includes(pressedKey) && 
   !correctLetters.includes(pressedKey)){
     compare(pressedKey, currentWord)}
+    else{ console.log('you cant press that key')}
+    
 
 if (correctLetters.length === currentWord.length){
   console.log("you win")
+  //green glow around inputs
+  //ding noise
   wins++
   current_word_index++
   console.log(`${current_word_index}`)
-  loadWord()
+  setTimeout(loadWord,1000)
 }
 }
 
 
-function compare(key, word) 
-{
+function compare(key, word) {
   if (word.includes(key)){
     for (let i = 0; i < word.length; i++){
       if (word[i] == key) {
@@ -115,13 +119,27 @@ function compare(key, word)
         inputs.querySelectorAll("input")[i].value = pressedKey;
         console.log("its a match")
           }}
-  }else{
-          incorrectLetters.push(pressedKey);
-          console.log("Wrong letter, loser")
-        }
-        incorrect_display.innerText = `Incorrect Letters: ${incorrectLetters}`
-        if(correctLetters.length === currentWord.length) {
-          console.log("")
-          wins++
-        }
+  }else
+  {incorrectLetters.push(pressedKey);
+    makeRedBlock(incorrectLetters, pressedKey)
+    console.log("Wrong letter, loser"); 
+    wrongGuesses++  
+  } 
+}
+
+function makeRedBlock(array,key){
+
+    const redBlock=document.createElement('div')
+    redBlock.innerHTML=key
+    redBlock.classList.add('red-block')
+    incorrect_display.appendChild(redBlock)
+    console.log("redblock made")
+  
+}
+
+function clearBlocks() {
+  while (incorrect_display.firstChild) {
+    incorrect_display.removeChild(incorrect_display.firstChild)  
+   }
+  
 }
