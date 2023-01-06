@@ -67,6 +67,7 @@ let word_pool = [
 
 
 function startGame() {
+  start_button.classList.add('hide')
   losses = 0;
   wins = 0;
 console.log("startgame fired")
