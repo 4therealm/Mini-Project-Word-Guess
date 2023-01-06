@@ -34,7 +34,7 @@ document.addEventListener('keydown', evaluatePressedKey)
 const start_button = document.querySelector('#start-button')
 start_button.addEventListener('click', startGame)
 const inputs = document.querySelector(".inputs");
-
+const guessCount = document.querySelector('#guess-count')
 const incorrect_display = document.querySelector(".incorrect")
 // managing state
 let currentWord;
@@ -45,6 +45,8 @@ let pressedKey;
 let wins = 0;
 let losses = 0;
 let shuffled_word_pool, current_word_index;
+const maxGuesses = 8;
+guessCount.innerText = `${wrongGuesses} / ${maxGuesses}`
 
 
 //array of words
@@ -60,7 +62,7 @@ let word_pool = [
 
 
 function startGame() {
-//  restart()
+
 console.log("startgame fired")
   shuffled_word_pool = word_pool.sort(() => Math.random() - .5)
   current_word_index = 0;
@@ -79,7 +81,7 @@ fireWord(currentWord)
 
 function fireWord(word){
   console.log(`the current word is: ${word}`)
-  let html = "";
+  let html = "";  
   for (let i = 0; i < word.length; i++) {
     html += `<input type="text" disabled>`
     inputs.innerHTML = html;
@@ -95,8 +97,11 @@ function evaluatePressedKey(e){
 if (pressedKey.match(/^[A-Za-z]+$/) &&
   !incorrectLetters.includes(pressedKey) && 
   !correctLetters.includes(pressedKey)){
-    compare(pressedKey, currentWord)}
-    else{ console.log('you cant press that key')}
+    compare(pressedKey, currentWord)
+    guessCount.innerText = `${wrongGuesses} / ${maxGuesses}`}
+    else{ console.log('you cant press that key')
+  //buzzer noise or screen shake
+  }
     
 
 if (correctLetters.length === currentWord.length){
@@ -124,7 +129,7 @@ function compare(key, word) {
     makeRedBlock(incorrectLetters, pressedKey)
     console.log("Wrong letter, loser"); 
     wrongGuesses++  
-  } 
+  }
 }
 
 function makeRedBlock(array,key){
