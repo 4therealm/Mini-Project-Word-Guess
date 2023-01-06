@@ -14,24 +14,27 @@ body{
   background-color: steelblue;
 }
 .incorrect{
-  /* border: 5px solid red; */
-  width: fit-content;
+  display: flex;
+  flex-direction: row;
   padding: 10px;
   
 }
-.red_block text{
+.red-block{
   pointer-events: none;
   text-transform: uppercase;
   box-shadow: var(--letter-block-shadow);
-  border:2px solid black;
-  background-color:azure;
-  height: 4rem;
-  width: 4rem;
+  border:5px solid black;
+  height: 3rem;
+  width: 3rem;
   border-radius: 10px;
-  font-size: 5rem;
+  font-size: 3rem;
   text-align: center;
-  line-height: 3.5rem;
+  line-height: 3rem;
+  background-color: red;
+  background-image: gradient(linear, 19.1% -7.9%, 81% 107.9%, color-stop(0, transparent), color-stop(.48, transparent), color-stop(.5, #000), color-stop(.52, transparent), color-stop(1, transparent));
+  background-image: repeating-linear-gradient(135deg, transparent 0%, transparent 48%, black 50%, transparent 52%, transparent 100%);
 }
+/* https://codepen.io/jusuf-azer/pen/ojJLoG */
 
 .container{
   border-radius: 20px;
@@ -121,8 +124,61 @@ body{
   font-size: 3rem;
   text-align: center;
   line-height: 3.5rem;
+  animation: myAnim 1s ease-in 0s 1 normal forwards;
+}@keyframes myAnim {
+	0% {
+		opacity: 0;
+		transform: translateX(-250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+  /* animation: wiggle 2s linear infinite;
   
 }
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+} */
+/* .inputs input{
+position: absolute;
+left: calc(50% - 3em);
+top: calc(50% - 2em);
+
+height: 4em;
+width: 7em;
+
+background: #444;
+background: linear-gradient(top, #555, #333);
+border: none;
+border-top: 3px solid orange;
+border-radius: 0 0 0.2em 0.2em;
+color: #fff;
+font-family: Helvetica, Arial, Sans-serif;
+font-size: 1em;
+transform-origin: 50% 5em;} */
 /* #key-pad{
 width: 60vw;
 display: flex;

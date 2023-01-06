@@ -139,13 +139,13 @@ function compare(key, word) {
           }}
   }else
   {incorrectLetters.push(pressedKey);
-    makeRedBlock(incorrectLetters, pressedKey)
+    makeRedBlock(pressedKey)
     console.log("Wrong letter, loser"); 
     wrongGuesses++  
   }
 }
 
-function makeRedBlock(array,key){
+function makeRedBlock(key){
 
     const redBlock=document.createElement('div')
     redBlock.innerHTML=key
@@ -170,3 +170,8 @@ function clearBlocks() {
       if ( ( timeLeft <= -1 ) ) 
         {clearInterval ( timer );
         }}, 1000 );}
+
+
+function showWord(params) {
+  
+}
