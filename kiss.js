@@ -105,45 +105,46 @@ function fireWord(word){
 function evaluatePressedKey(e){
   pressedKey =  e.key
   console.log(`${pressedKey} has been pressed`)
-if (pressedKey.match(/^[A-Za-z]+$/) &&
-  !incorrectLetters.includes(pressedKey) && 
-  !correctLetters.includes(pressedKey)){
-    compare(pressedKey, currentWord)
-   }
-    else{ console.log('you cant press that key')
-  //buzzer noise or screen shake
+  if (pressedKey.match(/^[A-Za-z]+$/) &&
+    !incorrectLetters.includes(pressedKey) && 
+    !correctLetters.includes(pressedKey)){
+      compare(pressedKey, currentWord)
+  }else{ console.log('you cant press that key')
+    //buzzer noise or screen shake
   }
+      
+  if (wrongGuesses == maxGuesses) {
+    //show word
+    console.log('you ran out of guesses')
+    setTimeout(loadWord,1000)
     
-if (wrongGuesses == maxGuesses) {
-  //show word
-  console.log('you ran out of guesses')
-  setTimeout(loadWord,1000)
-  
+  }
+  if (correctLetters.length === currentWord.length){
+    console.log("you win")
+    wins++
+    current_word_index++
+    console.log(`${current_word_index}`)
+    setTimeout(loadWord,1000)
+  }
+  guessCount.innerText = `${wrongGuesses} / ${maxGuesses}`
 }
-if (correctLetters.length === currentWord.length){
-  console.log("you win")
-  wins++
-  current_word_index++
-  console.log(`${current_word_index}`)
-  setTimeout(loadWord,1000)
-}
-guessCount.innerText = `${wrongGuesses} / ${maxGuesses}`}
 
 
 function compare(key, word) {
-  if (word.includes(key)){
-    for (let i = 0; i < word.length; i++){
-      if (word[i] == key) {
-        correctLetters += pressedKey;
-        inputs.querySelectorAll("input")[i].value = pressedKey;
+  if (word.includes(key)){//if the word has the pressed key in itq
+    for (let i = 0; i < word.length; i++){//a loop through each letter of the word
+      if (word[i] == key) {//if that current letter in the loop matches the key
+        correctLetters += pressedKey;//key is added to the correct letters array
+        inputs.querySelectorAll("input")[i].value = pressedKey;//the text value of the matching inputs will be changed to the matching key
         console.log("its a match")
-          }}
-  }else
-  {incorrectLetters.push(pressedKey);
+      }
+    }
+  }else{
+    incorrectLetters.push(pressedKey);
     makeRedBlock(pressedKey)
     console.log("Wrong letter, loser"); 
     wrongGuesses++  
-  }
+   }
 }
 
 function makeRedBlock(key){
@@ -159,8 +160,8 @@ function makeRedBlock(key){
 function clearBlocks() {
   while (incorrect_display.firstChild) {
     incorrect_display.removeChild(incorrect_display.firstChild)  
-   }
   }
+}
 
   function quizTimer () {
     timer = setInterval ( () => {
