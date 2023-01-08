@@ -1,31 +1,19 @@
-//play button to initiate game
 
-//empty blocks appear. number of blocks dependent on the length of the generated word. letters will either need to be hidden in blocks or generated with the blocks when the the blocks are appended. either way they need to be hidden until the player guesses that letter. then they will become visible.
-//blocks should be in grid i think, or maybe display hidden so the space is static and doesn't adjust with flex
 
 //timer interval set
 
 //to win game player must guess all the letters before timer runs out(or until choice count is exceeded?)
 //to win all letters must be guessed before timer runs out
 
-//idea: timer is visual. a llama approaching or something like that.
-
 //wins and losses displayed on screen( permanently i think, instead of at the end) 
 
 //for mobile have player select box and then type the letter
 
 
-//key event when player presses the letter key.
-//once the key value is determined, it should be compared to the letters in the array of the generated word, for each letter does the choice === true.
-
-//when win/lose a message should be displayed abd the timer stopped.
-
-//timer should reset on startbuttopn click
-
-//wins and losses saved in local storage i think
 
 
-//dynamic element constants
+
+
 
 // const word_box = document.querySelector('#word-box');
 document.addEventListener('keydown', evaluatePressedKey)
@@ -37,7 +25,7 @@ const inputs = document.querySelector(".inputs");
 const guessCount = document.querySelector('#guess-count')
 const incorrect_display = document.querySelector(".incorrect")
 const ratio = document.querySelector('#w-l')
-
+const button_list = document.querySelector('.button-list')
 // managing state
 let timeLeft = 120;
 let currentWord;
@@ -62,8 +50,68 @@ let word_pool = [
   {word:'zombie'},
   {word:'hippopotamus'},
   {word:'fibonacci'},
-  {word:'daffodil'}
+  {word:'daffodil'},
+  {word:'penguin'},
+  {word:'transform'},
+  {word:'vagabond'},
+  {word:"rodeo"},
+  {word:"brewer"},
+  {word:'extrapolate'},
+  {word:'tenacious'},
+  {word:'funk'},
+  {word:'aluminum'},
+  {word:'confused'},
+  {word:'collapse'},
+  {word:'salute'}
 ];
+
+
+// function renderLetters() {
+//   var letters = [
+//     'A',
+//     'B',
+//     'C',
+//     'D',
+//     'E',
+//     'F',
+//     'G',
+//     'H',
+//     'I',
+//     'J',
+//     'K',
+//     'L',
+//     'M',
+//     'N',
+//     'O',
+//     'P',
+//     'Q',
+//     'R',
+//     'S',
+//     'T',
+//     'U',
+//     'V',
+//     'W',
+//     'X',
+//     'Y',
+//     'Z',
+//     '_',
+//   ];
+
+//   // Dynamically create buttons
+//   // Create a for-loop to iterate through the letters array.
+//   for (var i = 0; i < letters.length; i++) {
+//     // Create button
+//     var letterBtn = $('<button>');
+//     // Assign style to the button
+//     letterBtn.addClass('btn');
+//     // Assign the letter to the data-letter attribute
+//     letterBtn.attr('data-letter', letters[i]);
+//     // Display the letter
+//     letterBtn.text(letters[i]);
+//     // Attach the letter element
+//     button_list.append(letterBtn);
+//   }
+// }
 
 
 function startGame() {
